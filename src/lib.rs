@@ -1,14 +1,17 @@
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
+
+use wasm_bindgen::prelude::*;
+use wee_alloc::WeeAlloc;
+
+// Use `wee_alloc` as the global allocator.
+#[global_allocator]
+static ALLOC: WeeAlloc = WeeAlloc::INIT;
+
+#[wasm_bindgen]
+extern "C" {
+    pub fn alert(s: &str);
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
+#[wasm_bindgen]
+pub fn greet(name:&str) {
+    alert(name);
 }
